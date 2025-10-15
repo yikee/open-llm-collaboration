@@ -494,7 +494,21 @@
                         <section className="mb-6">
                             <h2 className="text-lg font-semibold text-gray-900 mb-2">Overview</h2>
                             <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
-                                <p className="text-base leading-relaxed mb-2">Have you released/open-sourced any (language) model checkpoints to huggingface from your research in the past year? We are doing a study on how diverse models trained in LLM research could complement each other. If your model: 1) is a &lt;10b language model, 2) has basic instruction following, 3) is specialized/fine-tuned/RLed/adapted from one of the major open industry models (llama, gemma, qwen, olmo, etc.), we would love to know more about it! If used in the project, we will cite and credit your contribution :)</p>
+                                <p className="text-base leading-relaxed mb-2">
+                                    <strong>Have you released or open-sourced any (language) model checkpoints on Hugging Face from your research in the past year?</strong>
+                                </p>
+                                <p className="text-base leading-relaxed mb-2">
+                                    We are conducting a study on how diverse models trained in LLM research could complement each other. If your model:
+                                </p>
+                                <ul className="list-disc list-inside text-base mb-2 pl-4">
+                                    <li>is a language model</li>
+                                    <li>has fewer than 10 billion parameters</li>
+                                    <li>exhibits basic instruction-following capabilities</li>
+                                    <li>is specialized, fine-tuned, reinforcement learned, or otherwise adapted from a major open industry model (e.g., LLaMA, Gemma, Qwen, OLMo, etc.)</li>
+                                </ul>
+                                <p className="text-base leading-relaxed mb-2">
+                                    we would love to know more about it! If your model is included in our project, we will ensure that your contribution is fully cited and credited:)
+                                </p>
                             </div>
                         </section>
                         
@@ -509,7 +523,7 @@
                                         </label>
                                         <input
                                             type="text"
-                                            className="w-full rounded border border-gray-300 px-3 py-2 text-base"
+                                            className="w-full rounded border border-gray-300 px-3 py-3 text-base"
                                             placeholder="e.g., Qwen/Qwen3-8B"
                                             value={formData.modelName}
                                             onChange={(e) => handleInputChange('modelName', e.target.value)}
@@ -522,7 +536,7 @@
                                         </label>
                                         <input
                                             type="text"
-                                            className="w-full rounded border border-gray-300 px-3 py-2 text-base"
+                                            className="w-full rounded border border-gray-300 px-3 py-3 text-base"
                                             placeholder="e.g., Qwen/Qwen3-8B"
                                             value={formData.baseModel}
                                             onChange={(e) => handleInputChange('baseModel', e.target.value)}
@@ -533,8 +547,8 @@
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
                                             Description (1-2 sentence(s) about what the model is trained on/for)
                                         </label>
-                                        <textarea
-                                            className="w-full rounded border border-gray-300 px-3 py-2 text-base min-h-4rem"
+                                    <textarea
+                                            className="w-full rounded border border-gray-300 px-3 py-3 text-base min-h-5rem"
                                             placeholder="Describe what your model is trained on or specialized for..."
                                             value={formData.description}
                                             onChange={(e) => handleInputChange('description', e.target.value)}
@@ -547,7 +561,7 @@
                                         </label>
                                         <input
                                             type="text"
-                                            className="w-full rounded border border-gray-300 px-3 py-2 text-base"
+                                            className="w-full rounded border border-gray-300 px-3 py-3 text-base"
                                             placeholder="Paper title"
                                             value={formData.paperTitle}
                                             onChange={(e) => handleInputChange('paperTitle', e.target.value)}
@@ -560,33 +574,33 @@
                         
                         {/* Consent & Submit Section */}
                         <section className="mb-10">
-                            <h2 className="text-lg font-semibold text-gray-900 mb-2">Consent & Submit</h2>
-                            <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
-                                <div className="space-y-3">
-                                    <div className="flex items-start gap-3">
-                                        <input 
-                                            type="checkbox" 
-                                            className="mt-1 h-4 w-4" 
-                                            checked={consent}
-                                            onChange={(e) => setConsent(e.target.checked)}
-                                        />
+                                <h2 className="text-lg font-semibold text-gray-900 mb-2">Consent & Submit</h2>
+                                <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+                                    <div className="space-y-3">
+                                        <div className="flex items-start gap-3">
+                                            <input 
+                                                type="checkbox" 
+                                                className="mt-1 h-4 w-4" 
+                                                checked={consent}
+                                                onChange={(e) => setConsent(e.target.checked)}
+                                            />
                                         <label className="text-base">I understand my model information will be used for research purposes and I will not submit any sensitive or confidential information. I will be acknowledged for my contributions.</label>
-                                    </div>
-                                    <div className="flex gap-3 items-center">
-                                        <button 
-                                            type="submit" 
-                                            className="px-4 py-2 rounded bg-gray-900 text-white hover:bg-black disabled:opacity-50 text-base"
-                                            disabled={saving === "saving"}
+                                        </div>
+                                        <div className="flex gap-3 items-center">
+                                            <button 
+                                                type="submit" 
+                                                className="px-4 py-2 rounded bg-gray-900 text-white hover:bg-black disabled:opacity-50 text-base"
+                                                disabled={saving === "saving"}
                                             onClick={handleSubmit}
-                                        >
-                                            {saving === "saving" ? "Submitting..." : "Submit"}
-                                        </button>
-                                        {saving === "ok" && <span className="text-sm text-green-700">Saved ✓</span>}
-                                        {saving === "err" && <span className="text-sm text-amber-700">Couldn't reach server; downloaded a backup JSON.</span>}
+                                            >
+                                                {saving === "saving" ? "Submitting..." : "Submit"}
+                                            </button>
+                                            {saving === "ok" && <span className="text-sm text-green-700">Saved ✓</span>}
+                                            {saving === "err" && <span className="text-sm text-amber-700">Couldn't reach server; downloaded a backup JSON.</span>}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
                     </main>
                     
                     <footer className="border-t bg-white">
