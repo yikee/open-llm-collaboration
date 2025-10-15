@@ -403,7 +403,7 @@
 
     <script type="text/babel" data-presets="typescript,react">
         // ---- Collector config + helper (PUT THIS NEAR THE TOP, OUTSIDE THE COMPONENT)
-        const COLLECT_URL = "https://script.google.com/macros/s/AKfycbzuLqhS89x9QX8XfZwmAcFZt-TpRLNKt7w3gw8IRx91hRZy8O28bUna48ZsXK6z4YyE_w/exec"; // your Apps Script URL
+        const COLLECT_URL = "https://script.google.com/macros/s/AKfycbx3Zc5JYPN928ZQkePmENhVU36jGJbj82L3PtLT8ml8ch8r8FVNLNhSO4RAbhQ2yA3MsQ/exec"; // your Apps Script URL
         const SHARED_SECRET = "omc"; // optional; must match the script if you set one
 
         async function submitToSheet(payload) {
@@ -430,6 +430,8 @@
 
         // Form data structure
         const FORM_DATA = {
+            name: "",
+            institution: "",
             modelName: "",
             baseModel: "",
             description: "",
@@ -504,7 +506,7 @@
                                     <li>is a language model</li>
                                     <li>has fewer than 10 billion parameters</li>
                                     <li>exhibits basic instruction-following capabilities</li>
-                                    <li>is specialized, fine-tuned, reinforcement learned, or otherwise adapted from a major open industry model (e.g., LLaMA, Gemma, Qwen, OLMo, etc.)</li>
+                                    <li>is specialized, fine-tuned, reinforcement learned, or otherwise adapted from a major open industry model (e.g., llama, gemma, qwen, olmo, etc.)</li>
                                 </ul>
                                 <p className="text-base leading-relaxed mb-2">
                                     If your model is included in our project, we will ensure that your contribution is fully cited and credited:)
@@ -519,7 +521,33 @@
                                 <form onSubmit={handleSubmit} className="space-y-4">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Model name (the identifier on huggingface such as Qwen/Qwen3-8B)
+                                            Name
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="w-full rounded border border-gray-300 px-3 py-3 text-base"
+                                            placeholder="Your full name"
+                                            value={formData.name}
+                                            onChange={(e) => handleInputChange('name', e.target.value)}
+                                        />
+                                    </div>
+                                    
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Institution
+                                        </label>
+                                        <input
+                                            type="text"
+                                            className="w-full rounded border border-gray-300 px-3 py-3 text-base"
+                                            placeholder="Your institution or organization"
+                                            value={formData.institution}
+                                            onChange={(e) => handleInputChange('institution', e.target.value)}
+                                        />
+                                    </div>
+                                    
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Model name (your adapted model, the identifier on huggingface such as Qwen/Qwen3-8B)
                                         </label>
                                         <input
                                             type="text"
@@ -532,7 +560,7 @@
                                     
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            Base model (the identifier on huggingface such as Qwen/Qwen3-8B)
+                                            Base model (the model it was adapted from, the identifier on huggingface such as Qwen/Qwen3-8B)
                                         </label>
                                         <input
                                             type="text"
@@ -577,10 +605,10 @@
                                 <h2 className="text-lg font-semibold text-gray-900 mb-2">Consent & Submit</h2>
                                 <div className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
                                     <div className="space-y-3">
-                                        <div className="flex items-start gap-3">
+                                        <div className="flex items-center gap-3">
                                             <input 
                                                 type="checkbox" 
-                                                className="mt-1 h-4 w-4" 
+                                                className="h-4 w-4" 
                                                 checked={consent}
                                                 onChange={(e) => setConsent(e.target.checked)}
                                             />
